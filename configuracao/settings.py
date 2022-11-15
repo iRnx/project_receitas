@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'receitas',
+    'pessoas',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +69,7 @@ WSGI_APPLICATION = 'configuracao.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'receita',
+        'NAME': 'receitas',
         'USER': 'postgres',
         'PASSWORD': 'Babycorp1533@',
         'HOST': 'localhost',
@@ -121,3 +122,5 @@ STATIC_URL = 'static/' # usado durante o desenvolvimento
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'pessoas.Pessoas'
