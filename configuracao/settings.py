@@ -67,10 +67,10 @@ WSGI_APPLICATION = 'configuracao.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'receitas',
-        'USER': 'root',
-        'PASSWORD': 'root',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'receita',
+        'USER': 'postgres',
+        'PASSWORD': 'Babycorp1533@',
         'HOST': 'localhost',
     }
 }
@@ -111,7 +111,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # usado na produção(deploy)
-# STATICFILES_DIRS = os.path.join(BASE_DIR, 'configuracao/static'),
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'configuracao/static')
+    ]
 STATIC_URL = 'static/' # usado durante o desenvolvimento
 
 
