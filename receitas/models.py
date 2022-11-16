@@ -3,6 +3,8 @@ from datetime import datetime
 from django.db import models
 from pessoas.models import Pessoas
 
+from stdimage.models import StdImageField
+
 
 class Receita(models.Model):
     pessoa = models.ForeignKey(Pessoas, on_delete=models.CASCADE)
@@ -13,6 +15,7 @@ class Receita(models.Model):
     rendimento = models.CharField(max_length=100)
     categoria = models.CharField(max_length=100)
     data_receita = models.DateTimeField(default=datetime.now, blank=True)
+    foto = StdImageField(upload_to='fotos/%d/%m/%Y',variations={'thumb': (365, 280)} ,blank=True)
     publicada = models.BooleanField(default=False)
 
     class Meta:

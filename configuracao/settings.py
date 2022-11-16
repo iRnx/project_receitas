@@ -30,6 +30,8 @@ INSTALLED_APPS = [
 
     'receitas',
     'pessoas',
+
+    'stdimage',
 ]
 
 MIDDLEWARE = [
@@ -116,6 +118,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'configuracao/static')
     ]
 STATIC_URL = 'static/' # usado durante o desenvolvimento
+
+# media #
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # usado na produção(deploy)
+MEDIA_URL = '/media/'
+
 
 
 # Default primary key field type

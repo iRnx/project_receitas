@@ -37,7 +37,11 @@
                     <!-- Single Best Receipe Area -->
                     <div class="col-12 col-sm-6 col-lg-4">
                         <div class="single-best-receipe-area mb-30">
-                            <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
+                            {% if receita.foto == null %}
+                                <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
+                            {% else %}
+                                <img src="{{ receita.foto.thumb.url }}" alt="" class="foto_django">
+                            {% endif %}
                             <div class="receipe-content">
                                 <a href="{% url 'receita' receita.id %}"><h5>{{ receita.nome }}</h5></a>
                             </div>
