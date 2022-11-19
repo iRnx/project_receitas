@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Usuarios
 from django.contrib import messages
+from django.contrib import auth
+from receitas.models import Receita
+
 
 def cadastro(request):
 
@@ -36,16 +39,39 @@ def cadastro(request):
         return redirect('/accounts/login')
     
 
-
-
 def login(request):
-    return render(request, 'usuarios/login.html')
+
+    if request.method == 'GET':
+        return render(request, 'usuarios/login.html')
+
+    if request.method == 'POST':
+
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+        if email == '' or senha == '':
+            messages.error(request, 'Nenhum campo pode ficar em branco.')
+            return redirect('/accounts/login')
+        
+        
+        if Usuarios.objects.filter(email=email).exists():
+
+            nome = Usuarios.objects.filter(email=email).values_list('username', flat=True).get()
+            user = auth.authenticate(request, username=nome, password=senha)
+
+            if user is not None:
+                auth.login(request, user)
+                return redirect('/minhas_receitas/dashboard')
+
+            else:
+                messages.error(request, 'Usuário não encontrado')
+                return redirect('/accounts/login')
+        else:
+            messages.error(request, 'Email ou senha inválido')
+            return redirect('/accounts/login')
 
 
 def logout(request):
-    pass
+    auth.logout(request)
+    return redirect('index')
 
-
-def dashboard(request):
-    pass
 
