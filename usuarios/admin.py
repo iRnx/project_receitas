@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Pessoas
+from .models import Usuarios
 from .forms import UserChangeForm, UserCreationForm
 from django.contrib.auth import admin as admin_auth_django
 
-@admin.register(Pessoas)
+@admin.register(Usuarios)
 class PessoasAdmin(admin_auth_django.UserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm

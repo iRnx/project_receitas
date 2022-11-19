@@ -1,15 +1,16 @@
 from datetime import datetime
 
 from django.db import models
-from pessoas.models import Pessoas
+from usuarios.models import Usuarios
 
 from stdimage.models import StdImageField
 
 
 class Receita(models.Model):
-    pessoa = models.ForeignKey(Pessoas, on_delete=models.CASCADE)
+    pessoa = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
     nome = models.CharField(max_length=100)
     ingredientes = models.TextField()
+    descricao = models.CharField(max_length=80)
     preparo = models.TextField()
     tempo_preparo = models.IntegerField()
     rendimento = models.CharField(max_length=100)

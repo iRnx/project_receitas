@@ -1,4 +1,5 @@
 from pathlib import Path
+from django.contrib.messages import constants
 import os
 
 
@@ -29,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'receitas',
-    'pessoas',
+    'usuarios',
 
     'stdimage',
 ]
@@ -49,7 +50,7 @@ ROOT_URLCONF = 'configuracao.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'receitas/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,16 +114,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # usado na produção(deploy)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'configuracao/static')
     ]
 STATIC_URL = 'static/' # usado durante o desenvolvimento
 
+
 # media #
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # usado na produção(deploy)
 MEDIA_URL = '/media/'
 
+
+# para alterar o tempo da session #
+SESSION_COOKIE_AGE = 1000*1000
 
 
 # Default primary key field type
@@ -130,4 +136,16 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'pessoas.Pessoas'
+
+# indicando que vamos usar nosso model #
+AUTH_USER_MODEL = 'usuarios.Usuarios'
+
+
+# django message #
+MESSAGE_TAGS = {
+    constants.DEBUG: 'alert-primary',
+    constants.ERROR: 'alert-danger',
+    constants.SUCCESS: 'alert-success',
+    constants.INFO: 'alert-info',
+    constants.WARNING: 'alert-warning',
+}

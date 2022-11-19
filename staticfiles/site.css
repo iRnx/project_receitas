@@ -34,8 +34,8 @@ p {
   line-height: 2;
   font-weight: 400; }
 
+
 a,
-a:hover,
 a:focus {
   -webkit-transition-duration: 500ms;
   transition-duration: 500ms;
@@ -44,7 +44,12 @@ a:focus {
   color: #000000;
   font-weight: 600;
   font-size: 14px;
-  color: #474747; }
+  color: #ffffff; }
+
+a:hover {
+  text-decoration: none;
+  color: #ffffff;
+}
 
 ul,
 ol {
@@ -1370,3 +1375,56 @@ textarea:focus {
     padding-left: 30px; }
 
 /*# sourceMappingURL=style.css.map */
+
+
+/* CARDS */
+
+.card-largura {
+  max-width: 18rem;
+}
+
+.imagem-carrosel-um {
+  object-fit: cover;
+  object-position: 0 50%;
+  height: 800px;
+  
+}
+
+.imagem-carrosel-dois {
+  object-fit: cover;
+  height: 400px;
+  
+}
+
+.fonte-titulo {
+  font-family: 'Pacifico', cursive;
+}
+
+.cor-especial {
+  color: #40ba37!important;
+}
+
+.botao-cor-especial {
+  background-color:#40ba37;
+  color: white;
+}
+
+.borda-cor-especial {
+  border-color: #40ba37;
+}
+
+/* Para imagem não ficar borrada quando colocarmos um height */
+.card-posicao-imagem {
+  object-fit: cover;
+  height: 280px;
+}
+
+/* Mudar a cor dos inputs do bootstrap */
+.form-control:focus {
+  border-color: #40ba37;
+  box-shadow: 0 0 0 0.2rem #40ba37;
+} 
+
+.text:hover {
+  text-decoration: none;
+}

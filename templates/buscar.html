@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'content' %}
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="{% static 'img/core-img/pizza.png' %}" alt="">
+    </div>
+
+    {% include 'partials/busca.html' %}
+
+    {% include 'partials/navbar.html' %}
+
+    <!-- ##### Best Receipe Area Start ##### -->
+    <!-- <section class="best-receipe-area">
+        <div class="container">
+            <div class="row">
+                {% if receitas %}
+                    {% for receita in receitas %}
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="single-best-receipe-area mb-30">
+                            {% if receita.foto == null %}
+                                <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
+                            {% else %}
+                                <img src="{{ receita.foto.thumb.url }}" alt="" class="foto_django">
+                            {% endif %}
+                            <div class="receipe-content">
+                                <a href="{% url 'receita' receita.id %}"><h5>{{ receita.nome }}</h5></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Não existe nenhuma receita.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section> -->
+    
+    <!-- ##### Best Receipe Area End ##### -->
+
+
+
+
+
+       <!--Cards-->
+       <section class="container-fluid bg-light" id="receitas">
+        
+        <div class="row justify-content-center">
+            {% if receitas %}
+        
+                {% for receita in receitas %}
+                    <article class="card borda-cor-especial card-largura p-0 m-4 col-12 col-md-4">
+
+                        {% if receita.foto.thumb == null %}
+                            <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
+                        {% else %}
+                            <img src="{{ receita.foto.thumb.url }}" class="card-img-top card-posicao-imagem" alt="...">
+                        {% endif %}
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">{{ receita.nome }}</h5>
+                            <p class="card-text">{{ receita.descricao }}</p>
+                            <a href="{% url 'receita' receita.id %}" class="btn botao-cor-especial">Veja a receita</a>
+                            </a>
+                        </div>
+
+                    </article>
+                {% endfor %}
+
+            {% else %}
+                <p>Não existe nenhuma receita com o nome {{ search }}</p>
+            {% endif %}
+
+      </section>
+
+    {% include 'partials/footer.html' %}
+
+{% endblock %}
+
+    
+
+   
+
+    
+
