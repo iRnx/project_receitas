@@ -10,7 +10,7 @@ def dashboard(request):
     if request.user.is_authenticated:
         id = request.user.id
         receitas_usuario = Receita.objects.all().filter(pessoa=id).order_by('-data_receita')
-        return render(request, 'usuarios/dashboard.html', {'receitas': receitas_usuario})
+        return render(request, 'crud_receitas/dashboard.html', {'receitas': receitas_usuario})
     else:
         return redirect('index')
 

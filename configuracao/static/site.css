@@ -1380,7 +1380,7 @@ textarea:focus {
 /* CARDS */
 
 .card-largura {
-  max-width: 18rem;
+  max-width: 23rem;
 }
 
 .imagem-carrosel-um {
@@ -1409,9 +1409,9 @@ textarea:focus {
   color: white;
 }
 
-.borda-cor-especial {
+/* .borda-cor-especial {
   border-color: #40ba37;
-}
+} */
 
 /* Para imagem não ficar borrada quando colocarmos um height */
 .card-posicao-imagem {

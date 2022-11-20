@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Receita
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
@@ -7,14 +8,18 @@ def index(request):
 
     receitas = Receita.objects.filter(publicada=True).order_by('-data_receita')
 
-    return render(request, 'index.html', {'receitas': receitas})
+    paginator = Paginator(receitas, 3)
+    page = request.GET.get('page')
+    receitas_por_pagina = paginator.get_page(page)
+
+    return render(request, 'receitas/index.html', {'receitas': receitas_por_pagina})
 
 
 def receita(request, id):
 
     receita = get_object_or_404(Receita, id=id)
 
-    return render(request, 'receita.html', {'receita': receita})
+    return render(request, 'receitas/receita.html', {'receita': receita})
 
 
 def buscar(request):
@@ -27,7 +32,7 @@ def buscar(request):
         receitas = Receita.objects.filter(pessoa=request.user)
         
     
-    return render(request, 'buscar.html', {'receitas': receitas, 'search': search })
+    return render(request, 'receitas/buscar.html', {'receitas': receitas, 'search': search })
         
 
     
