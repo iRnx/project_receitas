@@ -22,20 +22,12 @@
                     </div>
                 </div>
             </div>
+
+            {% include 'partials/alerts.html' %}
+            
             <div class="row">
                 <div class="col-12">
-                    {% if messages %}
-                        {% for message in messages %}
 
-                            <div class="alert {{message.tags}} mt-3 alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>   
-                            </div>
-
-                        {% endfor %}
-                {% endif %}
                     <div class="contact-form-area">
                         
                         <form action="{% url 'cadastro' %}" method="POST">

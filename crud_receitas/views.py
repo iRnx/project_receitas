@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from receitas.models import Receita
 from usuarios.models import Usuarios
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 @login_required(login_url='index')
@@ -44,11 +45,42 @@ def criar_receita(request):
                                          foto=foto_receita)
         receita.save()
 
-        return redirect('/accounts/dashboard')
+        return redirect('/minhas_receitas/dashboard')
 
 
 @login_required(login_url='index')
-def editar(request):
-    return render(request, 'crud_receitas/editar.html')
+def editar(request, id):
+
+    receita = get_object_or_404(Receita, id=id)
+
+    if request.method == 'GET':
+        return render(request, 'crud_receitas/editar.html', {'receita': receita})
+
+
+    if request.method == 'POST':
+        receita.nome = request.POST.get('nome')
+        receita.descricao = request.POST.get('descricao')
+        receita.ingredientes = request.POST.get('ingredientes')
+        receita.preparo = request.POST.get('preparo')
+        receita.tempo_preparo = request.POST.get('tempo_preparo')
+        receita.rendimento = request.POST.get('rendimento')
+        receita.categoria = request.POST.get('categoria')
+
+        if 'foto' in request.FILES:
+            receita.foto = request.FILES.get('foto')
+
+        receita.save()
+        return redirect('/minhas_receitas/dashboard')
+    
+    
+
+
+@login_required(login_url='index')
+def deletar(request, id):
+    receita = get_object_or_404(Receita, id=id)
+    receita.delete()
+    messages.success(request, 'Receita deletada com sucesso!!')
+    return redirect('/minhas_receitas/dashboard')
+    
 
 

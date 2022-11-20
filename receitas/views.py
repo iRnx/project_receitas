@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import Receita
+
 
 
 def index(request):
@@ -20,12 +21,13 @@ def buscar(request):
 
     search = request.GET.get('search')
 
-    
     if search:
-        receitas = Receita.objects.filter(nome__icontains=search)
-        return render(request, 'buscar.html', {'search': search, 'receitas': receitas})
-
+        receitas = Receita.objects.filter(nome__icontains=search, pessoa=request.user)
     else:
-        return render(request, 'buscar.html', {'search': search, 'receitas': receitas})
+        receitas = Receita.objects.filter(pessoa=request.user)
+        
+    
+    return render(request, 'buscar.html', {'receitas': receitas, 'search': search })
+        
 
     

@@ -1,5 +1,5 @@
 from pathlib import Path
-from django.contrib.messages import constants
+from django.contrib import messages
 import os
 
 
@@ -144,9 +144,9 @@ AUTH_USER_MODEL = 'usuarios.Usuarios'
 
 # django message #
 MESSAGE_TAGS = {
-    constants.DEBUG: 'alert-primary',
-    constants.ERROR: 'alert-danger',
-    constants.SUCCESS: 'alert-success',
-    constants.INFO: 'alert-info',
-    constants.WARNING: 'alert-warning',
+    messages.DEBUG: 'alert-primary',
+    messages.ERROR: 'alert-danger',
+    messages.SUCCESS: 'alert-success',
+    messages.INFO: 'alert-info',
+    messages.WARNING: 'alert-warning',
 }
