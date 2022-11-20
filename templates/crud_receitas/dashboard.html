@@ -47,12 +47,13 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ receita.nome }}</h5>
                             <p class="card-text">{{ receita.descricao }}</p>
-                            <a href="{% url 'receita' receita.id %}" class="btn botao-cor-especial">Veja a receita</a>
+                            <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
                         </div>
 
                         <div class="card-footer d-flex justify-content-between">
-                            <a href="{% url 'editar' receita.id %}" class="btn btn-primary">Editar</a>
-                            <a href="{% url 'deletar' receita.id %}" class="btn btn-danger deletar">Deletar</a>
+                            <a href="{{ receita.get_editar }}" class="btn btn-primary">Editar</a>
+                            <a href="{% url 'publicar' receita.id %}" class="btn btn-secondary">Publicar</a>
+                            <a href="{{ receita.get_deletar }}" class="btn btn-danger deletar">Deletar</a>
                         </div>
 
                     </article>

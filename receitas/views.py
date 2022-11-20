@@ -8,16 +8,16 @@ def index(request):
 
     receitas = Receita.objects.filter(publicada=True).order_by('-data_receita')
 
-    paginator = Paginator(receitas, 3)
+    paginator = Paginator(receitas, 6)
     page = request.GET.get('page')
     receitas_por_pagina = paginator.get_page(page)
 
     return render(request, 'receitas/index.html', {'receitas': receitas_por_pagina})
 
 
-def receita(request, id):
+def receita(request, slug):
 
-    receita = get_object_or_404(Receita, id=id)
+    receita = get_object_or_404(Receita, slug=slug)
 
     return render(request, 'receitas/receita.html', {'receita': receita})
 

@@ -49,9 +49,9 @@ def criar_receita(request):
 
 
 @login_required(login_url='index')
-def editar(request, id):
+def editar(request, slug):
 
-    receita = get_object_or_404(Receita, id=id)
+    receita = get_object_or_404(Receita, slug=slug)
 
     if request.method == 'GET':
         return render(request, 'crud_receitas/editar.html', {'receita': receita})
@@ -76,11 +76,36 @@ def editar(request, id):
 
 
 @login_required(login_url='index')
-def deletar(request, id):
-    receita = get_object_or_404(Receita, id=id)
+def deletar(request, slug):
+    receita = get_object_or_404(Receita, slug=slug)
     receita.delete()
     messages.success(request, 'Receita deletada com sucesso!!')
     return redirect('/minhas_receitas/dashboard')
     
 
 
+def publicar(request, id):
+
+    receita = get_object_or_404(Receita, id=id)
+
+    if receita.publicada == False:
+        receita.publicada=True
+        receita.save()
+        messages.success(request, 'Receita Publicada com sucesso!!')
+        return redirect('/minhas_receitas/dashboard')
+    else:
+        messages.warning(request, 'Está receita ja foi publicada')
+        return redirect('/minhas_receitas/dashboard')
+
+
+def remover(request, id):
+        
+    receita = get_object_or_404(Receita, id=id)
+
+    if receita.publicada == True:
+        receita.publicada=False
+        receita.save()
+        messages.success(request, 'Receita removida com sucesso')
+        return redirect('index')
+    else:
+        return redirect('/minhas_receitas/dashboard')

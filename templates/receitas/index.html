@@ -12,6 +12,8 @@
     {% include 'partials/busca.html' %}
 
     {% include 'partials/navbar.html' %}
+    
+    {% include 'partials/alerts.html' %}
 
     <!-- ##### Best Receipe Area Start ##### -->
     <!-- <section class="best-receipe-area">
@@ -58,13 +60,22 @@
                         {% else %}
                             <img src="{{ receita.foto.thumb.url }}" class="card-img-top card-posicao-imagem" alt="...">
                         {% endif %}
-                        
+
                         <div class="card-body">
                             <h5 class="card-title">{{ receita.nome }}</h5>
                             <p class="card-text">{{ receita.descricao }}</p>
-                            <a href="{% url 'receita' receita.id %}" class="btn botao-cor-especial">Veja a receita</a>
+                            <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
                             </a>
                         </div>
+
+                        {% if request.user == receita.pessoa %}
+
+                            <div class="card-footer d-flex justify-content-between">
+                                <a href="{{ receita.get_editar }}" class="btn btn-primary">Editar</a>
+                                <a href="{% url 'remover' receita.id %}" class="btn btn-secondary">Remover</a>
+                            </div>
+                            
+                        {% endif %}
 
                     </article>
                 {% endfor %}
