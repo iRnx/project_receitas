@@ -3,5 +3,5 @@ Projeto finalizado!!, Porém pode ser que eu traga melhorias...
 
 
 <p align="center">
-  <img src="">
+  <img src="minha_receita.gif">
 </p>
