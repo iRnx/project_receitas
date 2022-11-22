@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Receita
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -22,17 +23,24 @@ def receita(request, slug):
     return render(request, 'receitas/receita.html', {'receita': receita})
 
 
+@login_required(login_url='index')
 def buscar(request):
 
-    search = request.GET.get('search')
+    if request.user.is_anonymous:
+        return render(request, 'receitas/buscar.html', {'receitas': receitas})
 
-    if search:
-        receitas = Receita.objects.filter(nome__icontains=search, pessoa=request.user)
-    else:
-        receitas = Receita.objects.filter(pessoa=request.user)
-        
     
-    return render(request, 'receitas/buscar.html', {'receitas': receitas, 'search': search })
+    if request.user.is_authenticated:
+
+        search = request.GET.get('search')
+
+        if search:
+            receitas = Receita.objects.filter(nome__icontains=search, pessoa=request.user)
+        else:
+            receitas = Receita.objects.filter(pessoa=request.user)
+            
+        
+        return render(request, 'receitas/buscar.html', {'receitas': receitas, 'search': search })
         
 
     

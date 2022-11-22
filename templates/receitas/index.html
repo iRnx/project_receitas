@@ -4,141 +4,245 @@
 {% block 'content' %}
 
     <!-- Preloader -->
-    <div id="preloader">
+    <!-- <div id="preloader">
         <i class="circle-preloader"></i>
         <img src="{% static 'img/core-img/pizza.png' %}" alt="">
-    </div>
-    
-    {% include 'partials/busca.html' %}
+    </div> -->
 
-    {% include 'partials/navbar.html' %}
-    
-    {% include 'partials/alerts.html' %}
+    {% if request.user.is_anonymous %}
+        
+        {% include 'partials/navbar.html' %}
+        
+        {% include 'partials/alerts.html' %}
 
-    <!-- ##### Best Receipe Area Start ##### -->
-    <!-- <section class="best-receipe-area">
-        <div class="container">
-            <div class="row">
+
+        <!--Cards-->
+        <section class="container-fluid" id="receitas">
+            
+            <div class="row justify-content-center">
                 {% if receitas %}
                     {% for receita in receitas %}
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="single-best-receipe-area mb-30">
-                            {% if receita.foto == null %}
+                        <article class="card border-0 card-largura p-0 m-4 col-12 col-md-4">
+
+                            {% if receita.foto.thumb == null %}
                                 <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
                             {% else %}
-                                <img src="{{ receita.foto.thumb.url }}" alt="" class="foto_django">
+                                <img src="{{ receita.foto.thumb.url }}" class="card-img-top card-posicao-imagem" alt="...">
                             {% endif %}
-                            <div class="receipe-content">
-                                <a href="{% url 'receita' receita.id %}"><h5>{{ receita.nome }}</h5></a>
-                            </div>
-                        </div>
-                    </div>
+
+                            
+
+                            
+
+                            {% if request.user == receita.pessoa %}
+
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ receita.nome }}</h5>
+                                    <p class="card-text">{{ receita.descricao }}</p>
+                                    <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
+                                    </a>
+                                </div>
+
+
+                                <div class="card-footer rounded-0 d-flex justify-content-between">
+                                    <a href="{{ receita.get_editar }}" class="btn btn-primary">Editar</a>
+                                    <a href="{% url 'remover' receita.id %}" class="btn btn-secondary">Remover</a>
+                                </div>
+
+                            {% else %}
+
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ receita.nome }}</h5>
+                                    <p class="card-text">{{ receita.descricao }}</p>
+                                    <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
+                                    </a>
+                                </div>
+
+                                <div class="card-footer rounded-0 d-flex pt-5 justify-content-between">
+                                    
+                                </div>
+
+                            {% endif %}
+
+                        </article>
                     {% endfor %}
+
                 {% else %}
                     <p>Não existe nenhuma receita.</p>
                 {% endif %}
-            </div>
-        </div>
-    </section> -->
-    
-    <!-- ##### Best Receipe Area End ##### -->
 
+        </section>
 
+        <!-- ##### Pagination ##### -->
+        <section class="top-catagory-area section-padding-20-0">
+            <div class="container">
+                {% if receitas.has_other_pages %}
 
-
-
-       <!--Cards-->
-       <section class="container-fluid bg-light" id="receitas">
-        
-        <div class="row justify-content-center">
-            {% if receitas %}
-                {% for receita in receitas %}
-                    <article class="card borda-cor-especial card-largura p-0 m-4 col-12 col-md-4">
-
-                        {% if receita.foto.thumb == null %}
-                            <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
-                        {% else %}
-                            <img src="{{ receita.foto.thumb.url }}" class="card-img-top card-posicao-imagem" alt="...">
-                        {% endif %}
-
-                        <div class="card-body">
-                            <h5 class="card-title">{{ receita.nome }}</h5>
-                            <p class="card-text">{{ receita.descricao }}</p>
-                            <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
-                            </a>
-                        </div>
-
-                        {% if request.user == receita.pessoa %}
-
-                            <div class="card-footer d-flex justify-content-between">
-                                <a href="{{ receita.get_editar }}" class="btn btn-primary">Editar</a>
-                                <a href="{% url 'remover' receita.id %}" class="btn btn-secondary">Remover</a>
-                            </div>
-                            
-                        {% endif %}
-
-                    </article>
-                {% endfor %}
-
-            {% else %}
-                <p>Não existe nenhuma receita.</p>
-            {% endif %}
-
-      </section>
-
-      <!-- ##### Pagination ##### -->
-    <section class="top-catagory-area section-padding-20-0">
-        <div class="container">
-            {% if receitas.has_other_pages %}
-
-                <ul class="pagination">
-                    {% if receitas.has_previous %}
-                        <li class="page-item">
-                            <a href="?page={{ receitas.previous_page_number }}" class="page-link">&laquo;</a>
-                        </li>
-
-                    {% else %}
-                        <li class="page-item disabled">
-                            <a class="page-link">&laquo;</a>
-                        </li>
-                    {% endif %}
-                        
-
-                    {% for pagina in receitas.paginator.page_range %}
-                        {% if receitas.number == pagina %}
-
-                            <li class="page-item active">
-                                <a class="page-link">{{ pagina }}</a>
-                            </li>
-                        {% else %}
+                    <ul class="pagination">
+                        {% if receitas.has_previous %}
                             <li class="page-item">
-                                <a href="?page={{ pagina }}" class="page-link">{{ pagina }}</a>
+                                <a href="?page={{ receitas.previous_page_number }}" class="page-link">&laquo;</a>
+                            </li>
+
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link">&laquo;</a>
                             </li>
                         {% endif %}
+                            
+
+                        {% for pagina in receitas.paginator.page_range %}
+                            {% if receitas.number == pagina %}
+
+                                <li class="page-item active">
+                                    <a class="page-link">{{ pagina }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a href="?page={{ pagina }}" class="page-link">{{ pagina }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if receitas.has_next %}
+                            <li class="page-item">
+                                <a href="?page={{ receitas.next_page_number }}" class="page-link">&raquo;</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link">&raquo;</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+        </section>
+        <!-- ##### Pagination End ##### -->
+
+
+
+
+        {% include 'partials/footer.html' %}
+
+            
+    {% else %}
+
+        {% include 'partials/busca.html' %}
+        {% include 'partials/navbar.html' %}
+        
+        {% include 'partials/alerts.html' %}
+
+
+        <!--Cards-->
+        <section class="container-fluid" id="receitas">
+            
+            <div class="row justify-content-center">
+                {% if receitas %}
+                    {% for receita in receitas %}
+                        <article class="card border-0 card-largura p-0 m-4 col-12 col-md-4">
+
+                            {% if receita.foto.thumb == null %}
+                                <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
+                            {% else %}
+                                <img src="{{ receita.foto.thumb.url }}" class="card-img-top card-posicao-imagem" alt="...">
+                            {% endif %}
+
+                            
+
+                            
+
+                            {% if request.user == receita.pessoa %}
+
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ receita.nome }}</h5>
+                                    <p class="card-text">{{ receita.descricao }}</p>
+                                    <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
+                                    </a>
+                                </div>
+
+
+                                <div class="card-footer rounded-0 d-flex justify-content-between">
+                                    <a href="{{ receita.get_editar }}" class="btn btn-primary">Editar</a>
+                                    <a href="{% url 'remover' receita.id %}" class="btn btn-secondary">Remover</a>
+                                </div>
+
+                            {% else %}
+
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ receita.nome }}</h5>
+                                    <p class="card-text">{{ receita.descricao }}</p>
+                                    <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
+                                    </a>
+                                </div>
+
+                                <div class="card-footer rounded-0 d-flex pt-5 justify-content-between">
+                                    
+                                </div>
+
+                            {% endif %}
+
+                        </article>
                     {% endfor %}
 
-                    {% if receitas.has_next %}
-                        <li class="page-item">
-                            <a href="?page={{ receitas.next_page_number }}" class="page-link">&raquo;</a>
-                        </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                            <a class="page-link">&raquo;</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            {% endif %}
-        </div>
-    </section>
-    <!-- ##### Pagination End ##### -->
+                {% else %}
+                    <p>Não existe nenhuma receita.</p>
+                {% endif %}
+
+        </section>
+
+        <!-- ##### Pagination ##### -->
+        <section class="top-catagory-area section-padding-20-0">
+            <div class="container">
+                {% if receitas.has_other_pages %}
+
+                    <ul class="pagination">
+                        {% if receitas.has_previous %}
+                            <li class="page-item">
+                                <a href="?page={{ receitas.previous_page_number }}" class="page-link">&laquo;</a>
+                            </li>
+
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link">&laquo;</a>
+                            </li>
+                        {% endif %}
+                            
+
+                        {% for pagina in receitas.paginator.page_range %}
+                            {% if receitas.number == pagina %}
+
+                                <li class="page-item active">
+                                    <a class="page-link">{{ pagina }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a href="?page={{ pagina }}" class="page-link">{{ pagina }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if receitas.has_next %}
+                            <li class="page-item">
+                                <a href="?page={{ receitas.next_page_number }}" class="page-link">&raquo;</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link">&raquo;</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+        </section>
+        <!-- ##### Pagination End ##### -->
 
 
 
 
-    {% include 'partials/footer.html' %}
+        {% include 'partials/footer.html' %}
 
+    {% endif %}
 {% endblock %}
-
     
 
    

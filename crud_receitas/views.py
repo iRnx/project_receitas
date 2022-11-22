@@ -83,7 +83,7 @@ def deletar(request, slug):
     return redirect('/minhas_receitas/dashboard')
     
 
-
+@login_required(login_url='index')
 def publicar(request, id):
 
     receita = get_object_or_404(Receita, id=id)
@@ -98,6 +98,7 @@ def publicar(request, id):
         return redirect('/minhas_receitas/dashboard')
 
 
+@login_required(login_url='index')
 def remover(request, id):
         
     receita = get_object_or_404(Receita, id=id)

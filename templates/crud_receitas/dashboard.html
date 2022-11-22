@@ -3,40 +3,40 @@
 
 {% block 'content' %}
 
-    <!-- Preloader -->
+    <!-- Preloader
     <div id="preloader">
         <i class="circle-preloader"></i>
         <img src="{% static 'img/core-img/pizza.png' %}" alt="">
-    </div>
+    </div> -->
     
     {% include 'partials/busca.html' %}
 
     {% include 'partials/navbar.html' %}
 
-    <div class="contact-area section-padding-0">
+    <!-- <div class="contact-area section-padding-0">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading">
-                        <h3>Olá {{ user.username|title }}</h3>
+                        <h3 class="nome_usuario">Olá {{ user.username|title }}</h3>
                     </div>
                 </div>
             </div>
         </div>
      </div>
-    
+     -->
         
 
     
     <!-- ##### Best Receipe Area End ##### -->
         
        <!--Cards-->
-       <section class="container-fluid bg-light" id="receitas">
+       <section class="container-fluid" id="receitas">
         {% include 'partials/alerts.html' %}
         <div class="row justify-content-center">
             {% if receitas %}
                 {% for receita in receitas %}
-                    <article class="card borda-cor-especial card-largura p-0 m-4 col-12 col-md-4">
+                    <article class="card border-0 card-largura p-0 m-4 col-12 col-md-4">
 
                         {% if receita.foto.thumb == null %}
                             <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
@@ -50,7 +50,7 @@
                             <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
                         </div>
 
-                        <div class="card-footer d-flex justify-content-between">
+                        <div class="card-footer rounded-0 d-flex justify-content-between">
                             <a href="{{ receita.get_editar }}" class="btn btn-primary">Editar</a>
                             <a href="{% url 'publicar' receita.id %}" class="btn btn-secondary">Publicar</a>
                             <a href="{{ receita.get_deletar }}" class="btn btn-danger deletar">Deletar</a>

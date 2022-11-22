@@ -3,11 +3,11 @@
 
 {% block 'content' %}
 
-    <!-- Preloader -->
+    <!-- Preloader
     <div id="preloader">
         <i class="circle-preloader"></i>
         <img src="{% static 'img/core-img/hamburger.png' %}" alt="">
-    </div>
+    </div> -->
 
     {% include 'partials/busca.html' %}
 
@@ -33,43 +33,15 @@
             </div>
         </div> -->
 
-        <!-- Receipe Slider -->
-        <!-- <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="receipe-slider owl-carousel">
-                        {% if receita.foto.thumb == 'null' %}
-                            <img src="{% static 'img/bg-img/tomate_banner.jpg' %}">
-                        {% else %}
-                            <img src="{{ receita.foto.thumb.url }}" alt="...">
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-         -->
 
+        {% if receita.foto.thumb == null %}
+            <img src="{% static 'img/bg-img/tomate_banner.jpg' %}" class="d-block col-7 m-auto">
+        {% else %}
+            <img src="{{ receita.foto.thumb.url }}" class="d-block col-7 m-auto"  alt="...">
+                    
+        {% endif %}
+    
 
-    <section class="carrossel">
-        <div id="carouselExampleCaptions" class="carousel slide" data-interval="false" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                
-            </ol>
-
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    {% if receita.foto.thumb == null %}
-                        <img src="{% static 'img/bg-img/tomate_banner.jpg' %}" class="d-block w-100 imagem-carrosel-um">
-                    {% else %}
-                        <img src="{{ receita.foto.thumb.url }}" class="d-block w-100 imagem-carrosel-um" alt="...">
-                    <div class="carousel-caption d-none d-md-block h-50">
-                    </div>
-                    {% endif %}
-                </div>
-            </div>  
-        </div>
-    </section>
 
         <!-- Receipe Content Area -->
         <div class="receipe-content-area">
@@ -77,13 +49,13 @@
                 <div class="row">
                     <div class="col-12 col-md-8">
                         <div class="receipe-headline my-5">
-                            <span>{{ receita.data_receita }}</span>
-                            <h2>{{ receita.nome }}</h2>
+                            <span class="receita_data">{{ receita.data_receita }}</span>
+                            <h2 class="receita_nome">{{ receita.nome }}</h2>
                             <div class="receipe-duration">
-                                <h6>Preparo: {{ receita.tempo_preparo }} minutos</h6>
-                                <h6>Rendimento: {{ receita.rendimento }}</h6>
-                                <h6>Categoria: {{ receita.categoria }}</h6>
-                                <h6>Por: {{ receita.pessoa|title }}</h6>
+                                <h6 class="receita_preparo">Preparo: {{ receita.tempo_preparo }} minutos</h6>
+                                <h6 class="receita_rendimento">Rendimento: {{ receita.rendimento }}</h6>
+                                <h6 class="receita_categoria">Categoria: {{ receita.categoria }}</h6>
+                                <h6 class="receita_pessoa">Por: {{ receita.pessoa|title }}</h6>
                             </div>
                         </div>
                     </div>
