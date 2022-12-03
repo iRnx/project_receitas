@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/renan/pythonprojects/receitas/venv"
+VIRTUAL_ENV="/home/renan/ubuntu arquivos/pythonprojects/receitas/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

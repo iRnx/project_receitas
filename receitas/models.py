@@ -37,8 +37,8 @@ class Receita(models.Model):
         return super().save(*args, **kwargs)
 
 
-    def get_receita(self):
-        return reverse('receita', kwargs={'slug': self.slug})
+    # def get_receita(self):
+    #     return reverse('receita', kwargs={'slug': self.slug})
 
 
     def get_editar(self):

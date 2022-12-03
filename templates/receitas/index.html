@@ -39,7 +39,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ receita.nome }}</h5>
                                     <p class="card-text">{{ receita.descricao }}</p>
-                                    <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
+                                    <a href="{% url 'receita' receita.slug %}" class="btn botao-cor-especial">Veja a receita</a>
                                     </a>
                                 </div>
 
@@ -54,7 +54,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ receita.nome }}</h5>
                                     <p class="card-text">{{ receita.descricao }}</p>
-                                    <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
+                                    <a href="{% url 'receita' receita.slug %}" class="btn botao-cor-especial">Veja a receita</a>
                                     </a>
                                 </div>
 
@@ -156,7 +156,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ receita.nome }}</h5>
                                     <p class="card-text">{{ receita.descricao }}</p>
-                                    <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
+                                    <a href="{% url 'receita' receita.slug %}" class="btn botao-cor-especial">Veja a receita</a>
                                     </a>
                                 </div>
 
@@ -171,7 +171,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ receita.nome }}</h5>
                                     <p class="card-text">{{ receita.descricao }}</p>
-                                    <a href="{{ receita.get_receita }}" class="btn botao-cor-especial">Veja a receita</a>
+                                    <a href="{% url 'receita' receita.slug %}" class="btn botao-cor-especial">Veja a receita</a>
                                     </a>
                                 </div>
 

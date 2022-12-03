@@ -30,7 +30,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/renan/pythonprojects/receitas/venv"
+set -gx VIRTUAL_ENV "/home/renan/ubuntu arquivos/pythonprojects/receitas/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
