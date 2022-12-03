@@ -26,6 +26,7 @@
            <div class="col-12">
            <p>Todos os campos são obrigatórios</p>
                <div class="contact-form-area">
+
                    <form action="{% url 'criar_receita' %}" method="post" enctype="multipart/form-data">
                            {% csrf_token %}
                        <div class="row">
@@ -61,8 +62,16 @@
                            </div>
 
                            <div class="col-12 col-lg-3">
-                               <label for="file"><b>Categoria da receita</b></label>
-                               <input type="text" class="form-control" name="categoria" placeholder="Ex. Sucos e bebidas" required>
+                            
+                                <label for="file"><b>Categorias</b></label>
+                                <select name="categorias" class="form-control">
+
+                                    {% for categoria in categorias %}
+                                        <option value="{{categoria.id}}">{{ categoria }}</option>
+                                    {% endfor %}
+                                    
+                                </select>
+                               
                            </div>
 
                            <div class="col-12 col-lg-3">

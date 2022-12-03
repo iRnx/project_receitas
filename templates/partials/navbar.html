@@ -31,6 +31,7 @@
                         </div>
                     </div>
 
+
                     
 
                     
@@ -84,6 +85,18 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          Categorias
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            {% for categoria in categorias %}
+                                                <a class="dropdown-item" href="{% url 'categorias' categoria.id %}">{{ categoria }}</a>
+                                            {% endfor %}
+                                        </div>
+                                      </div>
+
+
                                     {% if user.is_authenticated %}
 
                                         <li><a href="{% url 'index' %}">Home</a></li>
@@ -97,6 +110,7 @@
                                         <li><a href="{% url 'login' %}">Login</a></li>
 
                                     {% endif %}
+                                    
                                 </ul>
                             </div>
                             <!-- Nav End -->
@@ -192,6 +206,17 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          Categorias
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            {% for categoria in categorias %}
+                                                <a class="dropdown-item" href="{% url 'categorias' categoria.id %}">{{ categoria }}</a>
+                                            {% endfor %}
+                                        </div>
+                                      </div>
+
                                     {% if user.is_authenticated %}
 
                                         <li><a href="{% url 'index' %}">Home</a></li>
