@@ -51,9 +51,9 @@
                         </div>
 
                         <div class="card-footer rounded-0 d-flex justify-content-between">
-                            <a href="{{ receita.get_editar }}" class="btn btn-primary">Editar</a>
-                            <a href="{% url 'publicar' receita.id %}" class="btn btn-secondary">Publicar</a>
-                            <a href="{{ receita.get_deletar }}" class="btn btn-danger deletar">Deletar</a>
+                            <a href="{% url 'editar' receita.slug %}" class="btn btn-primary">Editar</a>
+                            <a href="{% url 'publicar' receita.slug %}" class="btn btn-secondary">Publicar</a>
+                            <a href="{% url 'deletar' receita.slug %}" class="btn btn-danger deletar">Deletar</a>
                         </div>
 
                     </article>

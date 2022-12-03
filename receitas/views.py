@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Receita
+from .models import Receita, Categoria
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
@@ -8,19 +8,21 @@ from django.contrib.auth.decorators import login_required
 def index(request):
 
     receitas = Receita.objects.filter(publicada=True).order_by('-data_receita')
+    categorias = Categoria.objects.all()
 
     paginator = Paginator(receitas, 6)
     page = request.GET.get('page')
     receitas_por_pagina = paginator.get_page(page)
 
-    return render(request, 'receitas/index.html', {'receitas': receitas_por_pagina})
+    return render(request, 'receitas/index.html', {'receitas': receitas_por_pagina, 'categorias': categorias})
 
 
 def receita(request, slug):
 
     receita = get_object_or_404(Receita, slug=slug)
+    categorias = Categoria.objects.all()
 
-    return render(request, 'receitas/receita.html', {'receita': receita})
+    return render(request, 'receitas/receita.html', {'receita': receita, 'categorias': categorias})
 
 
 @login_required(login_url='index')
@@ -43,4 +45,10 @@ def buscar(request):
         return render(request, 'receitas/buscar.html', {'receitas': receitas, 'search': search })
         
 
+# para ver as categorias, e cada categoria com sua respectiva receita #
+def categoria(request, id):
+
+    categorias = Categoria.objects.all()
+    receitas = Receita.objects.filter(categoria_id=id)
     
+    return render(request, 'receitas/index.html', {'categorias': categorias, 'receitas': receitas})

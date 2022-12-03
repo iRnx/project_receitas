@@ -1,16 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from receitas.models import Receita
+from receitas.models import Receita, Categoria
 from usuarios.models import Usuarios
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from django.http import HttpResponse
 
 @login_required(login_url='index')
 def dashboard(request):
     if request.user.is_authenticated:
         id = request.user.id
         receitas_usuario = Receita.objects.all().filter(pessoa=id).order_by('-data_receita')
-        return render(request, 'crud_receitas/dashboard.html', {'receitas': receitas_usuario})
+        categorias = Categoria.objects.all()
+        return render(request, 'crud_receitas/dashboard.html', {'receitas': receitas_usuario, 'categorias': categorias})
     else:
         return redirect('index')
 
@@ -18,10 +19,15 @@ def dashboard(request):
 @login_required(login_url='index')
 def criar_receita(request):
 
+    categorias = Categoria.objects.all()
+
+    
     if request.method == 'GET':
-        return render(request, 'crud_receitas/criar_receita.html')
+        
+        return render(request, 'crud_receitas/criar_receita.html', {'categorias': categorias})
 
     if request.method == 'POST':
+
 
         nome_receita = request.POST.get('nome_receita')
         ingredientes = request.POST.get('ingredientes')
@@ -29,8 +35,11 @@ def criar_receita(request):
         modo_preparo = request.POST.get('modo_preparo')
         tempo_preparo = request.POST.get('tempo_preparo')
         rendimento = request.POST.get('rendimento')
-        categoria = request.POST.get('categoria')
+        categoria = request.POST.get('categorias', None)
         foto_receita = request.FILES.get('foto_receita')
+
+        for cat in categoria:
+            categoria = Categoria.objects.filter(id=cat)[0]
 
         user = get_object_or_404(Usuarios, pk=request.user.id)
 
@@ -84,9 +93,9 @@ def deletar(request, slug):
     
 
 @login_required(login_url='index')
-def publicar(request, id):
+def publicar(request, slug):
 
-    receita = get_object_or_404(Receita, id=id)
+    receita = get_object_or_404(Receita, slug=slug)
 
     if receita.publicada == False:
         receita.publicada=True
@@ -99,9 +108,9 @@ def publicar(request, id):
 
 
 @login_required(login_url='index')
-def remover(request, id):
+def remover(request, slug):
         
-    receita = get_object_or_404(Receita, id=id)
+    receita = get_object_or_404(Receita, slug=slug)
 
     if receita.publicada == True:
         receita.publicada=False
