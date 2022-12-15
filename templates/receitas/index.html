@@ -45,8 +45,8 @@
 
 
                                 <div class="card-footer rounded-0 d-flex justify-content-between">
-                                    <a href="{{ receita.get_editar }}" class="btn btn-primary">Editar</a>
-                                    <a href="{% url 'remover' receita.id %}" class="btn btn-secondary">Remover</a>
+                                    <a href="{% url 'editar' receita.slug %}" class="btn btn-primary">Editar</a>
+                                    <a href="{% url 'remover' receita.slug %}" class="btn btn-secondary">Remover</a>
                                 </div>
 
                             {% else %}

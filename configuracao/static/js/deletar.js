@@ -9,3 +9,11 @@ for(i = 0; i < deletar.length; i++){
         }
     })
 }
+
+
+
+
+
+
+
+

@@ -1550,3 +1550,16 @@ input[type="checkbox"] {
 .dark .criar_receita {
   color: #fff;
 }
+
+.esconder {
+  display: none;
+}
+
+.teste {
+  background-color: #000;
+}
+
+.dark .classy-menu {
+  background-color: #161b22 !important;
+  color: #fff !important;
+}

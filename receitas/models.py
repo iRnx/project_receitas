@@ -10,6 +10,7 @@ from django.urls import reverse
 
 class Categoria(models.Model):
     categoria = models.CharField(max_length=200)
+    
 
     class Meta:
         verbose_name_plural = 'Categorias'

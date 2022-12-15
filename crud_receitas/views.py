@@ -28,7 +28,6 @@ def criar_receita(request):
 
     if request.method == 'POST':
 
-
         nome_receita = request.POST.get('nome_receita')
         ingredientes = request.POST.get('ingredientes')
         descricao = request.POST.get('descricao')
@@ -60,30 +59,48 @@ def criar_receita(request):
 @login_required(login_url='index')
 def editar(request, slug):
 
+    categorias = Categoria.objects.all()
     receita = get_object_or_404(Receita, slug=slug)
-
+    
     if request.method == 'GET':
-        return render(request, 'crud_receitas/editar.html', {'receita': receita})
+        return render(request, 'crud_receitas/editar.html', {'categorias': categorias, 'receita': receita})
 
 
     if request.method == 'POST':
+
         receita.nome = request.POST.get('nome')
         receita.descricao = request.POST.get('descricao')
         receita.ingredientes = request.POST.get('ingredientes')
         receita.preparo = request.POST.get('preparo')
         receita.tempo_preparo = request.POST.get('tempo_preparo')
         receita.rendimento = request.POST.get('rendimento')
-        receita.categoria = request.POST.get('categoria')
-
         if 'foto' in request.FILES:
             receita.foto = request.FILES.get('foto')
+        
 
-        receita.save()
-        return redirect('/minhas_receitas/dashboard')
-    
-    
+        requisicao = dict(request.POST)
+        print(requisicao)
+        
+        
+        try:
+
+            id = int(requisicao['categoria'][0])
+        
+            categoria = Categoria.objects.filter(id=id)[0]
+
+            receita.categoria = categoria
 
 
+            receita.save()
+        
+            return redirect('/minhas_receitas/dashboard')
+            
+        except (ValueError, KeyError):
+            messages.error(request, 'Insira um valor valido em categoria!!')
+            # raise ValueError('valor invalido baby')
+            return render(request, 'crud_receitas/editar.html', {'categorias': categorias, 'receita': receita})
+
+        
 @login_required(login_url='index')
 def deletar(request, slug):
     receita = get_object_or_404(Receita, slug=slug)
