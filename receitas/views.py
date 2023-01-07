@@ -4,13 +4,12 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
 
-
 def index(request):
 
     receitas = Receita.objects.filter(publicada=True).order_by('-data_receita')
     categorias = Categoria.objects.all()
 
-    paginator = Paginator(receitas, 6)
+    paginator = Paginator(receitas, 2)
     page = request.GET.get('page')
     receitas_por_pagina = paginator.get_page(page)
 
@@ -46,9 +45,9 @@ def buscar(request):
         
 
 # para ver as categorias, e cada categoria com sua respectiva receita #
-def categoria(request, id):
+def categoria(request, slug):
 
     categorias = Categoria.objects.all()
-    receitas = Receita.objects.filter(categoria_id=id)
+    receitas = Receita.objects.filter(categoria__slug=slug)
     
     return render(request, 'receitas/index.html', {'categorias': categorias, 'receitas': receitas})

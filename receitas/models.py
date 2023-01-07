@@ -6,10 +6,11 @@ from usuarios.models import Usuarios
 from stdimage.models import StdImageField
 
 from django.template.defaultfilters import slugify
-from django.urls import reverse
+# from django.urls import reverse
 
 class Categoria(models.Model):
     categoria = models.CharField(max_length=200)
+    slug = models.SlugField(blank=True, editable=False)
     
 
     class Meta:

@@ -10,4 +10,6 @@ class ReceitaAdmin(admin.ModelAdmin):
     list_editable = ('publicada',)
     list_per_page = 3
 
-admin.site.register(Categoria)
+@admin.register(Categoria)
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ('categoria', 'slug')

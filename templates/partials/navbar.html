@@ -212,7 +212,7 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             {% for categoria in categorias %}
-                                                <a class="dropdown-item" href="{% url 'categorias' categoria.id %}">{{ categoria }}</a>
+                                                <a class="dropdown-item" href="{% url 'categorias' categoria.slug %}">{{ categoria }}</a>
                                             {% endfor %}
                                         </div>
                                       </div>

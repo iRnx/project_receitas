@@ -3,6 +3,7 @@ from receitas.models import Receita, Categoria
 from usuarios.models import Usuarios
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.template.defaultfilters import slugify
 from django.http import HttpResponse
 
 @login_required(login_url='index')
@@ -74,6 +75,7 @@ def editar(request, slug):
         receita.preparo = request.POST.get('preparo')
         receita.tempo_preparo = request.POST.get('tempo_preparo')
         receita.rendimento = request.POST.get('rendimento')
+        receita.slug = slugify(receita.nome)
         if 'foto' in request.FILES:
             receita.foto = request.FILES.get('foto')
         
