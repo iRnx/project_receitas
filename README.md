@@ -3,7 +3,7 @@ Projeto finalizado!!, Porém pode ser que eu traga melhorias...
 
 
 <p align="center">
-  <img src="ezgif_site.gif">
+  <img src="minha_receita.gif">
 </p>
 
 <p>Tecnologias usadas no projeto:</p>
